@@ -1,7 +1,6 @@
 import speech_recognition as sr
 import sys
 from nektome import NektoMe
-import time
 
 
 def main():
@@ -14,20 +13,19 @@ def main():
             with mic as audio_file:
                 audio = r.listen(audio_file, phrase_time_limit=0.8)
             try:
-                cmd = r.recognize_google(audio)
-                print(cmd)
-                if "stop" in cmd.lower():
+                cmd = r.recognize_google(audio).lower()
+                print("Command: " + cmd)
+                if "stop" in cmd:
                     n.press_end_button()
-                    time.sleep(0.3)
-                    n.press_end2_button()
-                if "unit" in cmd.lower():
+                if "finish" in cmd:
                     n.stop()
                     sys.exit("Program stop with code: 0")
             except sr.UnknownValueError:
-                print("Silence")
-            except sr.RequestError as e:
-                print("Error")
+                pass
+            except sr.RequestError:
+                print("Program: error")
             n.press_next_button()
+            # n.captcha_passer()
 
 
 if __name__ == '__main__':
