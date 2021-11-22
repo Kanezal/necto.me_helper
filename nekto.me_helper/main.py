@@ -26,7 +26,3 @@ def main():
                 print("Program: error")
             n.press_next_button()
             # n.captcha_passer()
-
-
-if __name__ == '__main__':
-    main()
